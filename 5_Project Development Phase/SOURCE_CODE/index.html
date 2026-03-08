@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electricity Analytics Portal - India</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            overflow-x: hidden;
+        }
+
+        .sidebar {
+            height: 100vh;
+            background-color: #2c3e50;
+            color: white;
+            padding-top: 20px;
+            position: fixed;
+            width: 250px;
+            z-index: 100;
+        }
+
+        .sidebar a {
+            color: #adb5bd;
+            text-decoration: none;
+            padding: 15px 20px;
+            display: block;
+            font-size: 1.1rem;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background-color: #34495e;
+            color: white;
+            border-left: 4px solid #3498db;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 30px;
+        }
+
+        .dashboard-wrapper {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            min-height: 900px;
+        }
+
+        .view-section {
+            display: none;
+        }
+
+        .view-section.active {
+            display: block;
+        }
+
+        .nav-category {
+            padding: 10px 20px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #7f8c8d;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <h4 class="text-center mb-4 text-light"><i class="bi bi-lightning-fill text-warning"></i> Energy Portal</h4>
+        
+        <div class="nav-category">Dashboards</div>
+        <a onclick="showSection('db1')" id="nav-db1" class="active">
+            <i class="bi bi-speedometer2 me-2"></i> Consumption Overview
+        </a>
+        <a onclick="showSection('db2')" id="nav-db2">
+            <i class="bi bi-graph-up me-2"></i> Demand Analysis
+        </a>
+        <a onclick="showSection('db3')" id="nav-db3">
+            <i class="bi bi-map me-2"></i> Regional Distribution
+        </a>
+        
+        <div class="nav-category">Insights</div>
+        <a onclick="showSection('story')" id="nav-story">
+            <i class="bi bi-book me-2"></i> Strategic Story
+        </a>
+        
+        <hr class="mx-3 opacity-25">
+        <a href="#"><i class="bi bi-gear me-2"></i> Settings</a>
+    </div>
+
+    <div class="main-content">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h2 id="main-title">Electricity Consumption Overview</h2>
+                <p class="text-muted" id="main-subtitle">Detailed tracking of power usage metrics across India.</p>
+            </div>
+            <div>
+                <button class="btn btn-primary"><i class="bi bi-download me-1"></i> Export PDF</button>
+            </div>
+        </div>
+
+        <div class="dashboard-wrapper">
+            <div id="db1" class="view-section active">
+                <div class='tableauPlaceholder' id='viz1772885034135' style='position: relative'>
+                    <object class='tableauViz' style='display:none;'>
+                        <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+                        <param name='name' value='electricity_db1&#47;Dashboard1' />
+                        <param name='toolbar' value='yes' />
+                        <param name='language' value='en-US' />
+                    </object>
+                </div>
+            </div>
+
+            <div id="db2" class="view-section">
+                <div class='tableauPlaceholder' id='viz1772885064764' style='position: relative'>
+                    <object class='tableauViz' style='display:none;'>
+                        <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+                        <param name='name' value='electricity_db2&#47;Dashboard2' />
+                        <param name='toolbar' value='yes' />
+                        <param name='language' value='en-US' />
+                    </object>
+                </div>
+            </div>
+
+            <div id="db3" class="view-section">
+                <div class='tableauPlaceholder' id='viz1772884978168' style='position: relative'>
+                    <object class='tableauViz' style='display:none;'>
+                        <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+                        <param name='name' value='electricity_db3&#47;Dashboard3' />
+                        <param name='toolbar' value='yes' />
+                        <param name='language' value='en-US' />
+                    </object>
+                </div>
+            </div>
+
+            <div id="story" class="view-section">
+                <div class='tableauPlaceholder' id='viz1772885175549' style='position: relative; width: 100%; height: 850px;'>
+                    <object class='tableauViz' style='display:none;'>
+                        <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+                        <param name='name' value='electricity_story&#47;StoryonElectricityConsumptioninIndia' />
+                        <param name='toolbar' value='yes' />
+                        <param name='filter' value='publish=yes' />
+                    </object>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type='text/javascript'>
+        function initViz(containerId, isStory = false, mobileHeight = '1500px') {
+            var divElement = document.getElementById(containerId);
+            var vizElement = divElement.getElementsByTagName('object')[0];
+            
+            if (isStory) {
+                vizElement.style.width = '100%';
+                vizElement.style.height = '850px';
+            } else {
+                if (divElement.offsetWidth > 800) { 
+                    vizElement.style.width = '100%'; 
+                    vizElement.style.height = (divElement.offsetWidth * 0.75) + 'px'; 
+                } else { 
+                    vizElement.style.width = '100%'; 
+                    vizElement.style.height = mobileHeight; 
+                }
+            }
+
+            var scriptElement = document.createElement('script');
+            scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+            vizElement.parentNode.insertBefore(scriptElement, vizElement);
+        }
+
+        window.onload = function() {
+            initViz('viz1772885034135', false, '1777px');
+            initViz('viz1772885064764', false, '1277px');
+            initViz('viz1772884978168', false, '1527px');
+            initViz('viz1772885175549', true);
+        };
+
+        function showSection(sectionId) {
+            document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+
+            document.querySelectorAll('.sidebar a').forEach(l => l.classList.remove('active'));
+            document.getElementById('nav-' + sectionId).classList.add('active');
+
+            const title = document.getElementById('main-title');
+            const sub = document.getElementById('main-subtitle');
+
+            switch(sectionId) {
+                case 'db1':
+                    title.innerText = 'Electricity Consumption Overview';
+                    sub.innerText = 'Detailed tracking of power usage metrics across India.';
+                    break;
+                case 'db2':
+                    title.innerText = 'Demand & Load Analysis';
+                    sub.innerText = 'Analyzing peak demand periods and consumer load profiles.';
+                    break;
+                case 'db3':
+                    title.innerText = 'Regional Power Trends';
+                    sub.innerText = 'Geographical breakdown of energy distribution and losses.';
+                    break;
+                case 'story':
+                    title.innerText = 'India Energy Strategic Story';
+                    sub.innerText = 'A comprehensive narrative on the evolution of power consumption.';
+                    break;
+            }
+            // Trigger resize to fix Tableau rendering issues in hidden tabs
+            window.dispatchEvent(new Event('resize'));
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
